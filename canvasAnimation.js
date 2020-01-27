@@ -25,7 +25,8 @@ function startDraw() {
 function load(){
     var speed = 20;
     particles = new Array();
-    for (var i = 0; i < 300; i++) {
+    var limit = 200 * canvas.width * canvas.height / (960*1080);
+    for (var i = 0; i < limit; i++) {
         particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height, (Math.random() - 0.5)* speed / 60, (Math.random() - 0.5) * speed / 60));
     }
 }
