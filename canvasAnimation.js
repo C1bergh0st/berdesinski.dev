@@ -1,13 +1,15 @@
-const lightgrey = "#A9B7C6";
+const foreground = "#68B1FF";
+const background = "#FCFCFC";
 var canvas;
+var parent;
 var ctx;
-var backgroundColor = "rgb(43, 43, 43)";
 var particles;
 var lastwidth;
 var lastheight;
 
 function startDraw() {
     canvas = document.getElementById("back_canvas");
+    parent = document.getElementById("background");
     ctx = canvas.getContext("2d");
     const fps = 120;
     const delay = 1000/fps;
@@ -31,15 +33,19 @@ function load(){
 function draw(){
     var minRadius = 20;
     var maxRadius = 70;
-    var size = 6;
+    var size = 5;
     updateCanvas();
     
-    ctx.strokeStyle = "#000000";
-    ctx.lineWidth = 3;
-    ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    //ctx.strokeStyle = "#000000";
+    //ctx.strokeRect(0, 0, canvas.width, canvas.height);
     
-    ctx.fillStyle = lightgrey;
-    ctx.strokeStyle = lightgrey;
+    ctx.fillStyle = background;
+    ctx.rect(0,0,canvas.width,canvas.height);
+    ctx.fill();
+    
+    ctx.lineWidth = 3;
+    ctx.fillStyle = foreground;
+    ctx.strokeStyle = foreground;
     particles.forEach(function(item, index, array){
         item.x += item.dx;
         item.y += item.dy;
@@ -63,7 +69,7 @@ function draw(){
                     }
                     
                     //ctx.strokeStyle = "rgba(81, 122, 88, " + opacity + ")";
-                    ctx.strokeStyle = "rgba(169, 183, 198, " + opacity + ")";
+                    ctx.strokeStyle = "rgba(104, 177, 255, " + opacity + ")";
                     ctx.beginPath();
                     ctx.moveTo(item.x, item.y);
                     ctx.lineTo(other.x, other.y);
@@ -105,9 +111,9 @@ function Particle(x, y, dx, dy){
 
 
 function updateCanvas(){
-    canvas.width = document.body.clientWidth;
-    //canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight - document.getElementById("footer").clientHeight - 10;
+    //canvas.width = document.body.clientWidth;
+    canvas.width = parent.offsetWidth;
+    canvas.height = parent.offsetHeight;
     //ctx.fillStyle = backgroundColor;
     
     if(lastheight != canvas.height || lastwidth != canvas.width){
